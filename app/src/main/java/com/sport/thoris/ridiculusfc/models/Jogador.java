@@ -8,10 +8,6 @@ import java.io.Serializable;
 @DatabaseTable(tableName = Jogador.ITable.TABLE_NAME)
 public class Jogador implements Serializable, Comparable<Jogador>{
 
-
-    @DatabaseField(columnName = IColumns.ID, generatedId = true, allowGeneratedIdInsert = true)
-    private int id;
-
     @DatabaseField(columnName = IColumns.NOME_FIELD, unique = true, canBeNull = false)
     private String nome;
 
@@ -39,13 +35,10 @@ public class Jogador implements Serializable, Comparable<Jogador>{
     @DatabaseField(columnName = IColumns.MENSALISTA_FIELD, unique = false, canBeNull = true)
     private Boolean mensalista;
 
+    @DatabaseField(columnName = IColumns.ANO_NASCIMENTO_FIELD, unique = false, canBeNull = true)
+    private int anoNascimento;
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public String getNome() {
         return nome;
@@ -109,6 +102,13 @@ public class Jogador implements Serializable, Comparable<Jogador>{
         this.goleiro = goleiro;
     }
 
+    public int getAnoNascimento() {
+        return this.anoNascimento;
+    }
+    public void setAnoNascimento(int anoNascimento) {
+        this.anoNascimento = anoNascimento;
+    }
+
     public float getGeral() {
 
         return (chute + tecnica + velocidade) / 3f;
@@ -127,6 +127,7 @@ public class Jogador implements Serializable, Comparable<Jogador>{
     public Jogador() {
         this.setNome("No name");
         this.setNome("");
+        this.setAnoNascimento(0);
 
         this.setTecnica(0);
         this.setVelocidade(0);
@@ -190,6 +191,7 @@ public class Jogador implements Serializable, Comparable<Jogador>{
         String POS_MEIOCAMPO_FIELD = "meiocampo";
         String POS_ATAQUE_FIELD = "ataque";
         String MENSALISTA_FIELD = "mensalista";
+        String ANO_NASCIMENTO_FIELD = "nascimento";
     }
 
     public interface ITable{
