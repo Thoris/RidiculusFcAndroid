@@ -2,10 +2,10 @@ package com.sport.thoris.ridiculusfc.dao;
 
 import android.content.Context;
 
-import com.sport.thoris.ridiculusfc.interfaces.IJogadorDao;
-import com.sport.thoris.ridiculusfc.models.ModelBase;
+import com.sport.thoris.ridiculusfc.interfaces.dao.IJogadorDao;
+import com.sport.thoris.ridiculusfc.models.Jogador;
 
-public class JogadorDao extends BaseDAO<ModelBase> implements IJogadorDao {
+public class JogadorDao extends BaseDao<Jogador> implements IJogadorDao {
 
     private static JogadorDao dao;
 
@@ -19,6 +19,7 @@ public class JogadorDao extends BaseDAO<ModelBase> implements IJogadorDao {
     private JogadorDao(Context ctx) {
         super();
         super.ctx = ctx;
+
     }
 }
 

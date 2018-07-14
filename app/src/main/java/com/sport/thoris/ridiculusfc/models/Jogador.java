@@ -2,11 +2,12 @@ package com.sport.thoris.ridiculusfc.models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.sport.thoris.ridiculusfc.interfaces.models.IEntidade;
 
 import java.io.Serializable;
 
 @DatabaseTable(tableName = Jogador.ITable.TABLE_NAME)
-public class Jogador implements Serializable, Comparable<Jogador>{
+public class Jogador extends ModelBase implements Serializable, Comparable<Jogador>, IEntidade {
 
     @DatabaseField(columnName = IColumns.NOME_FIELD, unique = true, canBeNull = false)
     private String nome;
@@ -181,7 +182,7 @@ public class Jogador implements Serializable, Comparable<Jogador>{
 
     public interface IColumns
     {
-        String ID = "id";
+        //String ID = "id";
         String NOME_FIELD = "nome";
         String ATTR_CHUTE_FIELD = "chute";
         String ATTR_TECNICA_FIELD = "tecnica";

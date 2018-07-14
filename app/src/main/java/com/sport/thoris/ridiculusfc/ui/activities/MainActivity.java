@@ -1,15 +1,24 @@
 package com.sport.thoris.ridiculusfc.ui.activities;
 
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sport.thoris.ridiculusfc.R;
+import com.sport.thoris.ridiculusfc.dao.DatabaseManager;
+import com.sport.thoris.ridiculusfc.dao.JogadorDao;
+import com.sport.thoris.ridiculusfc.models.Jogador;
+import com.sport.thoris.ridiculusfc.services.JogadorService;
+import com.sport.thoris.ridiculusfc.services.ServiceManager;
 
 
 //https://github.com/codepath/android_guides/wiki/Home/6c236e883cc70912ccdd859173050fc147d409f1
@@ -38,6 +47,46 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        try {
+
+
+            Log.e("MAIN_TESTE", "INICIALIZANDO");
+            this.deleteDatabase("ridiculus.db");
+            Jogador jogador = new Jogador();
+            jogador.setNome("thoris");
+            //DatabaseManager.init(this);
+
+            ServiceManager.init(this);
+            JogadorService jogadorService = JogadorService.getInstance(this);
+            Log.e("MAIN_TESTE", "DB INICIADO");
+            jogadorService.insert(jogador);
+            //JogadorDao.getInstance(this).createOrUpdate(jogador);
+            //Jogador entry = JogadorDao.getInstance(this).findAll().get(0);
+            //Jogador entry = JogadorDao.getInstance(this).findByPK(10);
+            Jogador entry = jogadorService.getById(1);
+            Log.e("MAIN_TESTE", "INICIALIZADO");
+
+String data = "";
+if (entry == null)
+    data = "NULL";
+else
+    data = entry.getNome();
+
+            AlertDialog ad = new AlertDialog.Builder(this).create();
+            ad.setCancelable(false); // This blocks the 'BACK' button
+            ad.setMessage(data);
+            ad.setButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            ad.show();
+        }
+        catch (Exception e){
+            Log.e("MAIN_TESTE", "INICIALIZANDO:", e);
+        }
     }
 
     @Override

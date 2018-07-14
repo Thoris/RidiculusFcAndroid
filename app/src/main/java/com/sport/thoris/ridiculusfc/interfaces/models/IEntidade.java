@@ -1,4 +1,4 @@
-package com.sport.thoris.ridiculusfc.interfaces;
+package com.sport.thoris.ridiculusfc.interfaces.models;
 
 
 import java.io.Serializable;

@@ -14,11 +14,15 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.sport.thoris.ridiculusfc.interfaces.IEntidade;
-import com.sport.thoris.ridiculusfc.models.ModelBase;
+import com.sport.thoris.ridiculusfc.interfaces.models.IEntidade;
+import com.sport.thoris.ridiculusfc.models.Jogador;
 
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
+
+    //http://blog.mobsource.com.br/2014/07/banco-de-dados-facil-e-rapido-com-orm.html
+    //https://bng86.gitbooks.io/android-third-party-/content/ormlite.html
+
 
     private static final String DATABASE_FILE_NAME = "ridiculus.db";
 
@@ -35,8 +39,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
             Log.i(DatabaseHelper.class.getName(), "onCreate Database");
 
-            Log.i(DatabaseHelper.class.getName(), "Create table MeuBean");
-            TableUtils.createTable(connectionSource, ModelBase.class);
+            Log.i(DatabaseHelper.class.getName(), "Create table " + Jogador.class.getName());
+            TableUtils.createTable(connectionSource, Jogador.class);
 
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
@@ -68,7 +72,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         if (daos.get(entidadeClass) == null) {
 
             try {
-                dao = getDao(entidadeClass);
+                //dao = DaoManager.createDao(getConnectionSource(), entidadeClass);
+                //dao = DaoManager.createDao(entidadeClass);
+                dao = (Dao<IEntidade, Object>) getDao(entidadeClass);
+
             } catch (SQLException e) {
                 Log.e(DatabaseHelper.class.getName(), "exception during getDAO", e);
                 throw new RuntimeException(e);
